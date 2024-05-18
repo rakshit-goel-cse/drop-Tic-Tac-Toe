@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //import './App.css';  // Ensure to import the Tailwind CSS
 
-const VerticalRow = ({elements,char,setData,index}) => {
+const VerticalRow = ({elements,char,setData,index,checkGame}) => {
   // Initial state with 5 'X' elements
   //const [elements, setElements] = useState(['*', '*', '*', '*', '*']);
   //console.log("ele- ",elements);
@@ -12,6 +12,7 @@ const VerticalRow = ({elements,char,setData,index}) => {
         if(isAnimating){
         timeout = setTimeout(() => {
           setIsAnimating(false);
+          checkGame();
         }, 1000); // Duration should match the animation duration
         }
         return ()=> clearTimeout(timeout);
@@ -22,7 +23,7 @@ const VerticalRow = ({elements,char,setData,index}) => {
   const handleClick = () => {
 
     // Create a new array with 'O' at the top and rest elements shifted down
-    if(elements[elements.length - 1] =='*' && !isAnimating){
+    if(elements[elements.length - 1] ==='*' && !isAnimating){
     const newElements = [char, ...elements.slice(0, elements.length - 1)];
     setData(newElements,index);
     setIsAnimating(true);
@@ -38,9 +39,9 @@ const VerticalRow = ({elements,char,setData,index}) => {
         {elements && elements.map((el, index) => (
           <div 
             key={index} 
-            className={`w-16 h-16 flex items-center justify-center border border-gray-300`}
+            className={`bg-white w-16 h-16 flex items-center justify-center border border-gray-300`}
           >
-             <div className={`pt-14 absolute h-32 ${isAnimating ? 'animate-drop' : ''}`}>
+             <div className={`font-extrabold text-xl mb-4 pt-14 absolute h-32 ${isAnimating ? 'animate-drop' : ''}`}>
               {el}
             </div>
           </div>
