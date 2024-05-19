@@ -5,7 +5,7 @@ import GameBox from './components/GameBox';
 function App() {
   return (
     <div className="App">
-    <GameBox/>
+    <GameBox size={6}/>
   </div>
   );
 }
