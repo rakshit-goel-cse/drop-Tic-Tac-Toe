@@ -19,11 +19,11 @@ function iniData(k){
 
 };
 
-const GameBox = ({size}) => {
+const GameBox = ({size,ResetGame}) => {
   const [data, setdata] = useState([]); //colums
   useEffect(() => {
     setdata(iniData(size));
-  }, []);
+  }, [size]);
   const [openmodal, setopenmodal] = useState(false);
   const [winDraw, setwinDraw] = useState("");
   const [char, setChar] = useState("X");
@@ -82,14 +82,15 @@ const GameBox = ({size}) => {
         <div className="bg-white p-8 rounded shadow-lg w-60 h-36 relative flex flex-col items-center justify-center">
           <h2>
             {winDraw === "win" &&
-              "Game Over Player-" + (char === "X" ? "1" : "2") + " wins"}
+              <>Game Over <br/> Player- {char === "X" ? "1" : "2"} wins</>
+              }
             {winDraw === "draw" && "Game Over Match Draw"}
           </h2>
           <button
             className="mt-4 px-4 py-2 text-white bg-blue-500 rounded"
             onClick={() => setopenmodal(false)}
           >
-            Close Modal
+            OK
           </button>
         </div>
       </Modal>
@@ -123,6 +124,7 @@ const GameBox = ({size}) => {
           ))}
       </div>
       {/* mt-3 mb-5*/}
+      <div className="p-2 flex flex-row space-x-2 justify-between items-center">
       <button className="z-10 px-4 py-2 bg-amber-400 rounded-xl"
       onClick={()=>{
         setopenmodal(false);
@@ -132,6 +134,18 @@ const GameBox = ({size}) => {
       }}>
         Reset
       </button>
+
+      <button className="z-10 px-4 py-2 bg-amber-400 rounded-xl"
+      onClick={()=>{
+        setopenmodal(false);
+        setwinDraw("");
+        setChar("X");
+        setdata(iniData(size));
+        ResetGame();
+      }}>
+        Close Game
+      </button>
+      </div>
     </div>
   );
 };
